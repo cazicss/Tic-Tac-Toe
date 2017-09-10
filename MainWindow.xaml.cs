@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace Beginners09_WPF_TicTacToe {
-    
+namespace TicTacToe {
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -34,6 +24,7 @@ namespace Beginners09_WPF_TicTacToe {
 
         #endregion
 
+
         #region Constructors
         public MainWindow() {
             InitializeComponent();
@@ -44,14 +35,14 @@ namespace Beginners09_WPF_TicTacToe {
         #endregion
 
 
-
+        #region Functions
 
         private void ResetGame() {
 
             // initialize the cellValues array so that all cells are free
             cellValues = new byte[GRIDROWS, GRIDCOLS];
-            for(int i = cellValues.GetLength(0)-1; i > -1; --i) {
-                for(int k = cellValues.GetLength(1)-1; k > -1; --k) {
+            for (int i = cellValues.GetLength(0) - 1; i > -1; --i) {
+                for (int k = cellValues.GetLength(1) - 1; k > -1; --k) {
                     cellValues[i, k] = (byte)MarkType.Free;
                 }
             }
@@ -71,74 +62,10 @@ namespace Beginners09_WPF_TicTacToe {
                 button.Background = Brushes.White;
                 button.Foreground = Brushes.Blue;
             });
-            
+
 
         }
 
-        // Message handler for main game grid box clicks
-        private void Button_Click(object sender, RoutedEventArgs e) {
-
-            // if the game is over, clicking on a main game grid button will reset the game
-            if (gameEnded) {
-                ResetGame();
-                return;
-            }
-
-            // get sender data
-            var button = (Button)sender;        // cast sender to the Button class
-            var col = Grid.GetColumn(button);   // get the grid-column attached property value
-            var row = Grid.GetRow(button);      // get the grid-row attached property value
-
-            // get the appropriate cell value
-            var flag = cellValues[row, col];
-
-            // exit click handler if the clicked button is not free
-            if ((MarkType)flag != MarkType.Free) {
-                return;
-            }
-
-            numCellsFilled++;
-            
-            // process player1's turn
-            if (player1Turn) {
-
-                // process player1 clicking on a free space
-
-                button.Foreground = Brushes.Blue;
-                button.Content = "X";                       // update UI text with X
-                cellValues[row, col] = (byte)MarkType.X;    // update underlying 2D byte array with enum flag
-                player1Turn = false;                        // switch to player2's turn
-
-            }
-            else {
-
-                // process player2 clicking on a free space
-
-                button.Foreground = Brushes.Red;
-                button.Content = "O";                       // update UI text with O
-                cellValues[row, col] = (byte)MarkType.O;    // update underlying 2D byte array with enum flag
-                player1Turn = true;                         // switch to player1's turn
-            }
-
-
-            if (CheckForAWinner()) {
-                gameEnded = true;
-                numCellsFilled = 0;
-
-                int loser = winner == 1 ? 2 : 1;
-
-                MessageBox.Show($"Congratulations!! Player{winner}\nBetter Luck next time Player{loser} :( ..");
-            }
-            else if(numCellsFilled == (GRIDCOLS * GRIDROWS)){
-
-                // do game ended without winner condition here
-
-                gameEnded = true;
-                MessageBox.Show("You both suck..............\nI am disappointed.");
-
-            }
-
-        }
 
         /// <summary>
         /// Check if a win condition has occurred and assign the winner if so.
@@ -156,10 +83,10 @@ namespace Beginners09_WPF_TicTacToe {
             #region investigate each row
             // iterate through rows
             for (r = 0; r < GRIDROWS; r++) {
-                
+
 
                 // iterate through cols of current row
-                for(c = 0; c < GRIDCOLS; c++) {
+                for (c = 0; c < GRIDCOLS; c++) {
 
                     if (c == 0) {
 
@@ -170,8 +97,8 @@ namespace Beginners09_WPF_TicTacToe {
                     }
 
                     // c > 0, we are not at the first column anymore
-                    
-                    if((MarkType)cellValues[r,c] == m) {
+
+                    if ((MarkType)cellValues[r, c] == m) {
 
                         // if the element is the same as the last, continue to next col
 
@@ -280,7 +207,7 @@ namespace Beginners09_WPF_TicTacToe {
             // iterate through rows
             for (r = 0; r < GRIDROWS; r++) {
 
-                
+
                 if (r == 0) {
 
                     // if first check, set first marktype to r,r cell value
@@ -291,7 +218,7 @@ namespace Beginners09_WPF_TicTacToe {
 
                     // not first check, compare new cell value to old cell value
 
-                    if(m == (MarkType)cellValues[r, r]) {
+                    if (m == (MarkType)cellValues[r, r]) {
 
                         // cell value is same as last, continue on to next cell to check
                         continue;
@@ -383,11 +310,85 @@ namespace Beginners09_WPF_TicTacToe {
 
             #endregion
 
-    
+
             // if no winner has been found, return false to the caller
             return false;
         }
+
+
+        #endregion
+
+
+        #region Message Handlers
+
+        // Message handler for main game grid box clicks
+        private void Button_Click(object sender, RoutedEventArgs e) {
+
+            // if the game is over, clicking on a main game grid button will reset the game
+            if (gameEnded) {
+                ResetGame();
+                return;
+            }
+
+            // get sender data
+            var button = (Button)sender;        // cast sender to the Button class
+            var col = Grid.GetColumn(button);   // get the grid-column attached property value
+            var row = Grid.GetRow(button);      // get the grid-row attached property value
+
+            // get the appropriate cell value
+            var flag = cellValues[row, col];
+
+            // exit click handler if the clicked button is not free
+            if ((MarkType)flag != MarkType.Free) {
+                return;
+            }
+
+            numCellsFilled++;
+
+            // process player1's turn
+            if (player1Turn) {
+
+                // process player1 clicking on a free space
+
+                button.Foreground = Brushes.Blue;
+                button.Content = "X";                       // update UI text with X
+                cellValues[row, col] = (byte)MarkType.X;    // update underlying 2D byte array with enum flag
+                player1Turn = false;                        // switch to player2's turn
+
+            }
+            else {
+
+                // process player2 clicking on a free space
+
+                button.Foreground = Brushes.Red;
+                button.Content = "O";                       // update UI text with O
+                cellValues[row, col] = (byte)MarkType.O;    // update underlying 2D byte array with enum flag
+                player1Turn = true;                         // switch to player1's turn
+            }
+
+
+            if (CheckForAWinner()) {
+                gameEnded = true;
+                numCellsFilled = 0;
+
+                int loser = winner == 1 ? 2 : 1;
+
+                MessageBox.Show($"Congratulations!! Player{winner}\nBetter Luck next time Player{loser} :( ..");
+            }
+            else if (numCellsFilled == (GRIDCOLS * GRIDROWS)) {
+
+                // do game ended without winner condition here
+
+                gameEnded = true;
+                MessageBox.Show("You both suck..............\nI am disappointed.");
+
+            }
+
+        }
+
+        #endregion
+
     }
-
-
 }
+
+

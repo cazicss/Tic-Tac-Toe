@@ -1,7 +1,7 @@
-﻿<Application x:Class="Beginners09_WPF_TicTacToe.App"
+﻿<Application x:Class="TicTacToe.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Beginners09_WPF_TicTacToe"
+             xmlns:local="clr-namespace:TicTacToe"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

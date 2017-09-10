@@ -1,9 +1,9 @@
-﻿<Window x:Class="Beginners09_WPF_TicTacToe.MainWindow"
+﻿<Window x:Class="TicTacToe.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Beginners09_WPF_TicTacToe"
+        xmlns:local="clr-namespace:TicTacToe"
         mc:Ignorable="d"
         ResizeMode="CanResize"
         Title="Tic Tac Toe" Height="500" Width="500">
@@ -38,8 +38,6 @@
                 </StackPanel>
 
             </Grid>
-
-
 
             <Grid Margin="0 2 0 0" x:Name="grid_BtnContainer">
 

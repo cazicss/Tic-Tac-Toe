@@ -2,7 +2,7 @@
 /// <summary>
 /// The type of value a cell in the game is currently at
 /// </summary>
-namespace Beginners09_WPF_TicTacToe {
+namespace TicTacToe {
 
     public enum MarkType {
         Free, // cell not in use

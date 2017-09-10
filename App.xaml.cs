@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Beginners09_WPF_TicTacToe {
+namespace TicTacToe {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
