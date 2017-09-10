@@ -60,7 +60,7 @@ namespace TicTacToe {
             grid_BtnContainer.Children.Cast<Button>().ToList().ForEach(button => {
                 button.Content = string.Empty;
                 button.Background = Brushes.White;
-                button.Foreground = Brushes.Blue;
+                button.Foreground = Brushes.Black;
             });
 
 
@@ -108,7 +108,7 @@ namespace TicTacToe {
                     else {
 
                         // if the element is different, this line is not a winner
-                        // mark m as a nonplayer settable value and break out of checks for this row
+                        // mark m as a nonplayer settable value and break out of col checks for this row
 
                         m = MarkType.Free;
                         break;
@@ -130,6 +130,14 @@ namespace TicTacToe {
 
                     // mark the winner as player 1 if Xs won, or player 2 if Os won
                     winner = (m == MarkType.X) ? 1 : 2;
+
+                    // color row background green
+                    var gridChilds = grid_BtnContainer.Children;
+                    foreach(Button child in gridChilds) {
+                        if(Grid.GetRow(child) == r) {
+                            child.Background = Brushes.Green;
+                        }
+                    }
 
                     // return true that a winner was found
                     return true;
@@ -192,6 +200,14 @@ namespace TicTacToe {
                     // mark the winner as player 1 if Xs won, or player 2 if Os won
                     winner = (m == MarkType.X) ? 1 : 2;
 
+                    // color col background green
+                    var gridChilds = grid_BtnContainer.Children;
+                    foreach (Button child in gridChilds) {
+                        if (Grid.GetColumn(child) == c) {
+                            child.Background = Brushes.Green;
+                        }
+                    }
+
                     // return true that a winner was found
                     return true;
 
@@ -249,6 +265,14 @@ namespace TicTacToe {
                 // mark the winner as player 1 if Xs won, or player 2 if Os won
                 winner = (m == MarkType.X) ? 1 : 2;
 
+                // color row background green
+                var gridChilds = grid_BtnContainer.Children;
+                foreach (Button child in gridChilds) {
+                    if (Grid.GetRow(child) == Grid.GetColumn(child)) {
+                        child.Background = Brushes.Green;
+                    }
+                }
+
                 // return true that a winner was found
                 return true;
 
@@ -301,6 +325,16 @@ namespace TicTacToe {
 
                 // mark the winner as player 1 if Xs won, or player 2 if Os won
                 winner = (m == MarkType.X) ? 1 : 2;
+
+                // color diagonal background green
+                var gridChilds = grid_BtnContainer.Children;
+                foreach (Button child in gridChilds) {
+                    var gridRow = Grid.GetRow(child);
+                    var gridCol = Grid.GetColumn(child);
+                    if ( gridCol == GRIDCOLS - gridRow - 1) {
+                        child.Background = Brushes.Green;
+                    }
+                }
 
                 // return true that a winner was found
                 return true;
